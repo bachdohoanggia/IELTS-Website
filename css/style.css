@@ -1,0 +1,305 @@
+:root{
+    --accent-color:#8672FF;
+    --base-color:white;
+    --text-color:#2E2841;
+    --input-color:#F3F0FF;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 12pt;
+    color: var(--text-color);
+    text-align: center;
+}
+body{
+    min-height: 100vh;
+    background-image: url("../html/PNG/background.jpg");
+    background-size: cover;
+    background-position: right;
+    overflow: hidden;
+}
+
+.wrapper{
+    box-sizing: border-box;
+    background-color: var(--base-color);
+    height: 100vh;
+    width: max(10%, 600px);
+    padding: 10px;
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#img{
+    height: 50%;
+    width: 50%;
+}
+h1{
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+form{
+    width: min(400px, 100%);
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+form>div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+form label{
+    flex-shrink: 0;
+    height: 50px;
+    width: 50px;
+    background-color: var(--accent-color);
+    fill: var(--base-color);
+    color: var(--base-color);
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+form input{
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-width: 0;
+    height: 50px;
+    padding: 1em;
+    font: inherit;
+    border-radius: 0 10px 10px 0;
+    border: 2px solid var(--input-color);
+    border-left: none;
+    background-color: var(--input-color);
+    transition:150ms ease;
+}
+form input:hover{
+    border-color: var(--accent-color);
+}
+form input:focus{
+    outline: none;
+    border-color: var(--text-color);
+}
+div:has(input:focus) > label{
+    background-color: var(--text-color);
+}
+form input::placeholder{
+    color: var(--text-color);
+    opacity: 1;
+}
+form button{
+    margin-top: 10px;
+    border: none;
+    border-radius: 1000px;
+    padding: .85em 4em;
+    background-color: var(--accent-color);
+    color: var(--base-color);
+    font: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 150ms ease;
+}
+form button:hover{
+    background-color: var(--text-color);
+}
+form button:focus{
+    outline: none;
+    background-color: var(--text-color);
+}
+a{
+    text-decoration: none;
+    color: var(--accent-color);
+}
+a:hover{
+    text-decoration: underline;
+}
+@media(max-width: 1100px){
+    .wrapper{
+        width: min(600px,100%);
+        border-radius: 0;
+    }
+}
+form div.incorrect label{
+    background-color: red;
+}
+form div.incorrect input{
+    border-color: red;
+}
+#error-message{
+    color: red;
+}
+
+
+
+form select {
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-width: 2;
+    height: 50px;
+    padding: 0.1em 1em; 
+    font: inherit; 
+    border-radius: 0 10px 10px 0;
+    border: 2px solid var(--input-color); 
+    border-left: none; 
+    background-color: var(--input-color); 
+    transition: 150ms ease; 
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232E2841%22%20d%3D%22M287%2069.9a17.6%2017.6%200%200%200-12.5-5.2H17.9a17.6%2017.6%200%200%200-12.5%205.2c-6.8%206.8-6.8%2017.9%200%2024.7l130.4%20130.4c6.8%206.8%2017.9%206.8%2024.7%200l130.4-130.4c6.9-6.9%206.9-18%200-24.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1em center; 
+    background-size: 10px; 
+    padding-right: 2.5em; 
+}
+
+form select:hover {
+    border-color: var(--accent-color); 
+}
+
+form select:focus {
+    outline: none;
+    border-color: var(--text-color);
+}
+
+form select:focus {
+    outline: none;
+    border-color: var(--text-color);
+}
+
+form div:has(select:focus) > label {
+    background-color: var(--text-color); 
+}
+
+
+/* BẮT ĐẦU THÊM MỚI: CSS cho Teacher Code PIN Modal */
+
+.hidden {
+    display: none;
+}
+
+.teacher-code-pin-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px); 
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.teacher-code-pin-modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.teacher-code-pin-modal-content {
+    background-color: #2c2c2c; 
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    color: #f0f0f0; 
+}
+.teacher-code-pin-modal-overlay.visible .teacher-code-pin-modal-content {
+    transform: scale(1);
+}
+.teacher-code-pin-modal-title {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    color: #f0f0f0;
+}
+.pin-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.pin-input-box {
+    width: 60px;
+    height: 70px;
+    font-size: 2.5em;
+    text-align: center;
+    background-color: #3a3a3a; 
+    border: 2px solid #5a5a5a; 
+    border-radius: 8px;
+    color: #f0f0f0; 
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.pin-input-box:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+.teacher-code-pin-error-message {
+    color: #ff6b6b;
+    font-size: 0.9em;
+    margin-top: -15px; 
+    margin-bottom: 20px;
+}
+.teacher-code-pin-forgot-link {
+    font-size: 0.9em;
+    color: #bbb;
+    margin-bottom: 30px;
+}
+.teacher-code-pin-forgot-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.teacher-code-pin-forgot-link a:hover {
+    text-decoration: underline;
+}
+.teacher-code-pin-modal-actions {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+.teacher-code-pin-modal-submit-button,
+.teacher-code-pin-modal-cancel-button {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease;
+}
+.teacher-code-pin-modal-submit-button {
+    background-color: #007bff;
+    color: white;
+}
+.teacher-code-pin-modal-submit-button:hover {
+    background-color: #0056b3;
+}
+.teacher-code-pin-modal-cancel-button {
+    background-color: #5a5a5a;
+    color: #f0f0f0;
+}
+.teacher-code-pin-modal-cancel-button:hover {
+    background-color: #7a7a7a;
+}

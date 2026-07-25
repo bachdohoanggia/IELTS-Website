@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Interface</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <h1 id="dashboard-heading" data-value="DASHBOARD">DASHBOARD</h1> 
+        </div>
+        <div class="actions">
+            <button id="plusButton" class="icon-button">
+                <img src="PNG/ADD.png">
+            </button>
+            <div id="plusMenu" class="dropdown hidden">
+                <button id="joinClassMenuItem" class="dropdown-item">Join Class</button> 
+                <button id="createClassMenuItem" class="dropdown-item">Create Class</button>
+            </div>
+            <img id="avatar" src="PNG/account.png" alt="User Avatar" class="avatar">
+            <div id="avatarMenu" class="dropdown hidden">
+                <button class="dropdown-item" id="accountSettingsButton">Account Settings</button>
+                <button class="dropdown-item" id="logoutButton">Log Out</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="dashboard">
+        <p id="form-message" style="display: none; text-align: center; margin-top: 10px;"></p>
+        <section id="inviteBanner" class="invite-banner hidden">
+            <div>
+                <strong>Class invitation</strong>
+                <p id="inviteMessage"></p>
+            </div>
+            <div class="invite-actions">
+                <button id="acceptInviteBtn" type="button">Accept</button>
+                <button id="declineInviteBtn" type="button">Decline</button>
+            </div>
+        </section>
+
+        <h2 id="noClassMessage" class="hidden">No classes found. You can join or create a class.</h2>
+        <div id="classContainer" class="class-grid"></div>
+    </main>
+    
+    <div id="classOptions" class="hidden">
+        <button id="editClassBtn">Edit class</button>
+        <button id="deleteClassBtn">Delete class</button>
+    </div>
+
+    <div id="joinClassModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Join class</h2>
+            
+            <label for="classCode">Class code</label>
+            <input type="text" id="classCode" placeholder="Enter class code">
+            <p id="classCodeError" style="color: red; font-size: 0.9em; margin-top: 5px;"></p> 
+            <p class="instructions">To sign in with a class code:</p>
+            <ul>
+                <li>Use an authorized account</li>
+                <li>Use a class code with 5-8 letters or numbers, and no spaces or symbols</li>
+            </ul>
+            <div class="modal-actions">
+                <button id="cancelJoin" class="cancel-button">Cancel</button>
+                <button id="joinButton" class="join-button" disabled>Join</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="createClassModal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="classFormTitle">Create class</h2>
+            <form id="createClassForm">
+                <label for="className">Class name (required)</label>
+                <input type="text" id="className" placeholder="Enter class name" required>
+                
+                <label for="section">Section</label>
+                <input type="text" id="section" placeholder="Enter section">
+                
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" placeholder="Enter subject">
+                
+                <label for="room">Room</label>
+                <input type="text" id="room" placeholder="Enter room">
+                
+                <p id="createClassError" style="color: red; font-size: 0.9em; margin-top: 5px;"></p> 
+
+                <div class="modal-actions">
+                    <button type="button" id="cancelCreate" class="cancel-button">Cancel</button>
+                    <button type="submit" id="createButton" class="create-button" disabled>Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="accountSettingsModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Account settings</h2>
+            <form id="accountSettingsForm">
+                <label for="accountFirstname">Username</label>
+                <input type="text" id="accountFirstname" placeholder="Username" required>
+
+                <label for="accountCurrentPassword">Current password</label>
+                <input type="password" id="accountCurrentPassword" placeholder="Current password">
+
+                <label for="accountPassword">New password</label>
+                <input type="password" id="accountPassword" placeholder="New password">
+
+                <label for="accountConfirmPassword">Confirm new password</label>
+                <input type="password" id="accountConfirmPassword" placeholder="Confirm new password">
+
+                <p id="accountSettingsMessage" class="settings-message"></p>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancelAccountSettings" class="cancel-button">Cancel</button>
+                    <button type="submit" id="saveAccountSettingsButton" class="create-button">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        WELCOME <span id="usernameDisplay" data-value=""></span>
+    </div>
+    
+    <script src="../js/popup.js"></script>
+    <script type="module" src="../js/dashboard.js"></script> 
+    <script src="../js/effect.js" defer></script>
+</body>
+</html>

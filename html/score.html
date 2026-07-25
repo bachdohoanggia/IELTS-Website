@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả bài thi của bạn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/score.css">
+</head>
+<body>
+    <div class="score-container">
+        <h1>Your score:</h1>
+        <div class="test-info">
+            Test Name: <span id="testNameDisplay">Loading...</span><br>
+            Total questions: <span id="totalQuestionsDisplay">Loading...</span><br>
+            Total time: <span id="maxTimeTestDisplay">Loading...</span><br>
+            Submission time: <span id="submissionTimeDisplay">Loading...</span>
+        </div>
+
+        <div class="score-metrics">
+            <div class="metric-circle correct-answers">
+                <span class="icon check">✔</span>
+                <div class="label">Correct Answers</div>
+                <div class="value" id="correctAnswersValue">0/0</div>
+            </div>
+
+            <div class="metric-circle score-value">
+                <div class="value" id="userScoreValue">0</div>
+            </div>
+
+            <div class="metric-circle time-spent">
+                <span class="icon clock">🕒</span>
+                <div class="label">Time spent</div>
+                <div class="value" id="timeSpentValue">00:00</div>
+                <div class="sub-label"> / <span id="maxTimeCircleDisplay">00:00</span></div>
+            </div>
+        </div>
+
+        <div class="answer-keys-section">
+            <h2>Answer Keys:</h2>
+            <div id="answer-keys-list" class="answer-keys-grid">
+                </div>
+        </div>
+
+        <div class="score-actions">
+            <button id="backToGradesBtn" class="primary-button">Back to Grades</button>
+            <button id="deleteScoreBtn" class="danger-button hidden">Delete Score</button>
+        </div>
+    </div>
+
+    <script src="../js/popup.js"></script>
+    <script type="module" src="../js/score.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+            // Bắn confetti từ bên phải
+            confetti({
+                particleCount: 250, // Số lượng hạt confetti
+                spread: 100, // Độ lan rộng
+                scalar: 1,
+                origin: { x: 1, y: 0.9 }, // Vị trí xuất phát ở góc dưới bên phải
+            });
+
+            // Bắn confetti từ bên trái
+            confetti({
+                particleCount: 250,
+                spread: 100,
+                scalar: 1,
+                origin: { x: 0, y: 0.9 }, // Vị trí xuất phát ở góc dưới bên trái
+            });
+        }, 1490); 
+    });
+    </script>
+</body>
+</html>

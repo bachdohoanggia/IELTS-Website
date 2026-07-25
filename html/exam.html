@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Take Test</title>
+    <link rel="stylesheet" href="../css/exam.css" />
+    <link rel="icon" href="data:,"> 
+</head>
+<body>
+    <div class="exam-navbar">
+        <div class="navbar-left"></div>
+        <div class="navbar-center">
+            <img src="PNG/clock.png" alt="Clock Icon" class="clock-icon"/>
+            <div id="countdown" class="timer">00:00</div>
+        </div>
+        <div class="navbar-right">
+            <button id="notepad-toggle-btn" class="notepad-toggle-button" title="Open Notepad">
+                <img src="PNG/notepad.png" alt="Notepad Icon" style="width: 22px; height: 22px; vertical-align: middle;">
+            </button>
+            <div class="svg-hamburger-wrapper">
+                <div id="svg-hamburger-btn" class="menu">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <path class="line top" d="M 20,30 H 80"/>
+                        <path class="line middle" d="M 20,50 H 80" />
+                        <path class="line bottom" d="M 20,70 H 80"/>
+                    </svg>
+                </div>
+
+                <div id="hamburger-menu" class="hamburger-menu hidden">
+                    <ul>
+                        <li><button id="exit-test-btn">↪ Exit Test</button></li>
+                    </ul>
+                </div>
+            </div>
+            <button id="full-screen-btn" class="fullscreen-button" title="Full Screen Mode"></button>
+            <button id="main-submit-button" class="submit-button">Submit Test!</button>
+        </div>
+    </div>
+
+    <div class="main-content-layout">
+        <div class="exam-main-content-wrapper">
+            <div class="exam-left-panel" id="exam-instructions"></div>
+            <div class="resizer">
+                <img src="PNG/resize.png" alt="Resize" class="resizer-icon" draggable="false">
+            </div>
+            <div class="exam-right-panel" id="exam-questions"></div>
+
+            <div id="selection-tooltip" class="selection-tooltip hidden">
+                <button id="tooltip-note-btn" class="tooltip-button" type="button">Note</button>
+                <button id="tooltip-highlight-btn" class="tooltip-button" type="button">Highlight</button>
+                <button id="tooltip-remove-highlight-btn" class="tooltip-button hidden" type="button">Remove highlight</button>
+                <button id="tooltip-remove-note-btn" class="tooltip-button hidden" type="button">Remove Note</button>
+            </div>
+        </div>
+
+        <div id="exam-part-nav" class="part-nav exam-part-nav" aria-label="Test parts"></div>
+
+        <div id="notepad-sidebar" class="notepad-sidebar">
+            <div class="notepad-header">
+                <h3>Notepad</h3>
+                <button id="notepad-close-btn" class="close-button">&times;</button>
+            </div>
+            
+            <div class="notepad-search">
+                <input type="text" id="notepad-search-input" placeholder="Search for your note...">
+                <button id="notepad-search-btn"><img src="PNG/search.png" alt="Search" style="width: 16px; height: 16px;"></button>
+            </div>
+            <textarea id="new-note-textarea" style="display: none;"></textarea>
+            <div class="notepad-note-buttons" style="display: none;">
+                <button id="save-note-btn">Save</button>
+                <button id="cancel-note-btn">Cancel</button>
+            </div>
+            <div id="notes-list" class="notes-list"></div>
+        </div>
+    </div>
+
+    <div id="note-input-modal" class="note-input-modal">
+        <textarea id="modal-new-note-textarea" placeholder="Please enter your notes"></textarea>
+        <div class="modal-buttons">
+            <button id="modal-save-note-btn" class="save-btn">Save</button>
+            <button id="modal-cancel-note-btn" class="cancel-btn">Cancel</button>
+        </div>
+    </div>
+
+    <div id="exitConfirmModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <img src="PNG/warning.png" alt="Warning" style="width: 90px; height: 90px;">
+                </div>
+                <h3>Are you sure to exit the test?</h3>
+                <p>Your answers will not be saved when you exit. You might need to save the draft first.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="modalCancelBtn" class="modal-button cancel-button">Cancel</button>
+                <button id="modalYesBtn" class="modal-button confirm-button">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="submitConfirmModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button" id="submitCloseButton">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <img src="PNG/warning.png" alt="Warning" style="width: 90px; height: 90px;">
+                </div>
+                <h3>Are you sure you want to submit?</h3>
+                <p>Once submitted, you cannot change your answers!</p>
+            </div>
+            <div class="modal-footer">
+                <button id="submitCancelBtn" class="modal-button cancel-button">Cancel</button>
+                <button id="submitReviewBtn" class="modal-button submit-review-button">Submit and Review Answers</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/popup.js"></script>
+    <script type="module" src="../js/test.js"></script>
+    <script type="module" src="../js/highlight.js"></script>
+    <script type="module" src="../js/notepad.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const resizer = document.querySelector('.resizer');
+            const leftPanel = document.getElementById('exam-instructions');
+            const rightPanel = document.getElementById('exam-questions');
+            const container = document.querySelector('.exam-main-content-wrapper');
+            const notepadSidebar = document.querySelector('.notepad-sidebar'); 
+
+            if (!resizer || !leftPanel || !rightPanel || !container || !notepadSidebar) {
+                console.error("Resizer elements not found. Check your exam.html or CSS.");
+            } else {
+                let isResizing = false;
+                let animationFrameId = null;
+                let currentMouseX = 0;
+
+                resizer.addEventListener('mousedown', (e) => {
+                    isResizing = true;
+                    document.body.style.userSelect = 'none';
+                    document.body.style.cursor = 'ew-resize';
+
+                    leftPanel.classList.add('no-transition');
+                    rightPanel.classList.add('no-transition');
+                    
+                    document.addEventListener('mousemove', handleMouseMove);
+                    document.addEventListener('mouseup', handleMouseUp);
+                });
+
+                function handleMouseMove(e) {
+                    currentMouseX = e.clientX;
+                    if (!animationFrameId) {
+                        animationFrameId = requestAnimationFrame(updatePanelWidths);
+                    }
+                }
+
+                function updatePanelWidths() {
+                    if (!isResizing) {
+                        animationFrameId = null;
+                        return;
+                    }
+
+                    const containerRect = container.getBoundingClientRect();
+                    let newLeftBasis = currentMouseX - containerRect.left;
+                    const minPanelWidth = 200; 
+                    const maxLeftBasis = containerRect.width - resizer.offsetWidth - minPanelWidth;
+
+                    if (newLeftBasis < minPanelWidth) {
+                        newLeftBasis = minPanelWidth;
+                    } else if (newLeftBasis > maxLeftBasis) {
+                        newLeftBasis = maxLeftBasis;
+                    }
+                    
+                    leftPanel.style.flexBasis = `${newLeftBasis}px`;
+                    animationFrameId = requestAnimationFrame(updatePanelWidths);
+                }
+
+                function handleMouseUp() {
+                    isResizing = false;
+                    document.body.style.userSelect = 'auto';
+                    document.body.style.cursor = 'auto';
+                    document.removeEventListener('mousemove', handleMouseMove);
+                    document.removeEventListener('mouseup', handleMouseUp);
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null;
+                    }
+
+                    leftPanel.classList.remove('no-transition');
+                    rightPanel.classList.remove('no-transition');
+                   
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

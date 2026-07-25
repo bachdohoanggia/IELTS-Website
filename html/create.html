@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Test</title>
+  <link rel="stylesheet" href="../css/class.css" />
+</head>
+<body>
+  <nav id="nav">
+      <button id="close-button" class="nav-close-btn"> &times; </button>
+      <div id="ico"></div>
+      <h1>Examination</h1>
+  </nav>
+
+  <div id="whole">
+    <div class="create-test-header">
+      <label class="test-title-label" for="test-title">
+        <span>Test Title *</span>
+        <input type="text" id="test-title" placeholder="Test title" />
+      </label>
+      <label class="folder-select-label" for="test-folder-select">
+        <span>Folder *</span>
+        <select id="test-folder-select">
+          <option value="">Select a folder</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="main-instructions-editor">
+      <div class="rich-text-toolbar" aria-label="Text formatting tools">
+        <button type="button" class="rich-tool-button" data-command="bold" title="Bold"><strong>B</strong></button>
+        <button type="button" class="rich-tool-button" data-command="italic" title="Italic"><em>I</em></button>
+        <select class="rich-tool-select" data-command="fontSize" title="Font size">
+          <option value="">Size</option>
+          <option value="14">14</option>
+          <option value="16">16</option>
+          <option value="18">18</option>
+          <option value="20">20</option>
+          <option value="24">24</option>
+          <option value="28">28</option>
+        </select>
+        <label class="rich-tool-color" title="Text color">
+          <span>Color</span>
+          <input type="color" class="rich-tool-color-input" data-command="foreColor" value="#111827">
+        </label>
+        <button type="button" class="rich-tool-button rich-tool-black" data-command="foreColor" data-value="#111827" title="Black text">A</button>
+      </div>
+      <div contenteditable="true" id="test-instructions" class="rich-instructions rich-text-editor" placeholder="Instructions...(optional)"></div>
+    </div>
+
+    <div id="questions"></div>
+
+    <div class="test-schedule">
+      <label for="start-time">Start Date:</label>
+      <input type="datetime-local" id="start-time" required>
+
+      <label for="end-time">End Date:</label>
+      <input type="datetime-local" id="end-time" required>
+    </div>
+
+    <div class="timer-group"> 
+      <label>
+        Set Timer (minutes):
+        <input type="number" id="test-timer" min="1" placeholder="e.g. 30" />
+      </label>
+
+      <section class="assignment-panel" aria-label="Assign test">
+        <h2>Assign to</h2>
+        <div class="assignment-options">
+          <label>
+            <input type="radio" name="assignmentMode" value="everyone" checked>
+            Everyone
+          </label>
+          <label>
+            <input type="radio" name="assignmentMode" value="selected">
+            Selected students
+          </label>
+        </div>
+        <div id="assignmentStudentsList" class="assignment-students-list hidden"></div>
+        <p id="assignmentEmptyMessage" class="assignment-empty-message hidden">No students in this class yet.</p>
+      </section>
+      <p id="testValidationMessage" class="test-validation-message hidden" aria-live="polite"></p>
+    
+      <div id="nut">
+        <button onclick="addQuestion()" id="add">+ Add Question</button>
+        <button id="completeAndSaveButton" onclick="saveTest()">✅ Complete and save test!</button>
+      </div>
+    </div>
+
+    <div id="create-part-nav" class="part-nav create-part-nav" aria-label="Test parts"></div>
+  </div>
+
+  <script src="../js/popup.js"></script>
+  <script type="module" src="../js/test.js"></script>
+  
+</body>
+</html>

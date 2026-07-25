@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom</title>
+    <link rel="stylesheet" href="../css/class.css">
+</head>
+<body>
+    <header class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="dashboard.html" class="dashboard-link" aria-label="Back to dashboard">
+                <span class="breadcrumb-home-icon" aria-hidden="true"></span>
+                <span class="breadcrumb-home-text">Home</span>
+            </a>
+            <span class="separator" aria-hidden="true">/</span>
+            <span id="breadcrumbClassName">English class</span>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li class="nav-item active" onclick="showPage('stream')">Stream</li>
+                <li class="nav-item" onclick="showPage('classwork')">Classwork</li>
+                <li class="nav-item" onclick="showPage('people')">People</li>
+                <li class="nav-item" onclick="showPage('grades')">Grades</li>
+            </ul>
+        </nav>
+        <img src="PNG/account.png" alt="User Avatar" class="avatar" id="avatar">
+        <div id="avatarMenu" class="dropdown hidden">
+            <button class="dropdown-item" id="accountSettingsButton">Account Settings</button>
+            <button class="dropdown-item" id="logoutButton">Log Out</button>
+        </div>
+    </header>
+    <div id="class-whole">
+        <main class="class-content">
+            <div id="stream" class="page-section hidden">
+                <div class="stream-shell">
+                    <section class="stream-hero">
+                        <div>
+                            <span class="stream-kicker">Class stream</span>
+                            <h1 id="stream_text">Welcome to English class!</h1>
+                            <p id="streamMetaText">Share announcements, questions, and updates with your class.</p>
+                        </div>
+                    </section>
+
+                    <div class="stream-layout">
+                        <aside class="stream-sidebar">
+                            <section class="stream-side-card">
+                                <div class="stream-side-header">
+                                    <h2>Class code</h2>
+                                    <button type="button" id="copyClassCodeButton" class="stream-icon-button" title="Copy class code">Copy</button>
+                                </div>
+                                <strong id="displayClassCode"></strong>
+                                <p id="copyClassCodeMessage" class="stream-muted"></p>
+                            </section>
+
+                            <section class="stream-side-card">
+                                <h2>Class details</h2>
+                                <dl class="stream-details">
+                                    <div><dt>Name</dt><dd id="displayClassName"></dd></div>
+                                    <div><dt>Section</dt><dd id="displaySection"></dd></div>
+                                    <div><dt>Subject</dt><dd id="displaySubject"></dd></div>
+                                    <div><dt>Room</dt><dd id="displayRoom"></dd></div>
+                                </dl>
+                            </section>
+                        </aside>
+
+                        <section class="stream-feed-column">
+                            <form id="streamPostForm" class="stream-composer">
+                                <div id="streamComposerAvatar" class="stream-initials-avatar" aria-label="Your avatar">U</div>
+                                <div class="stream-composer-body">
+                                    <textarea id="streamPostInput" rows="1" placeholder="Share something with your class..."></textarea>
+                                    <div class="stream-composer-actions">
+                                        <p id="streamPostMessage" class="stream-muted"></p>
+                                        <button type="submit" id="streamPostButton">Post</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div id="streamFeed" class="stream-feed"></div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div id="classwork" class="page-section hidden">
+                <div class="classwork-toolbar">
+                    <button onclick="goToCreateTest()" id="createButton">+ Create New Test</button>
+                    <button type="button" id="createFolderButton" class="teacher-only hidden">+ Folder</button>
+                    <input type="search" id="classworkSearchInput" placeholder="Search folders or tests">
+                </div>
+                <p id="classworkFolderWarning" class="classwork-folder-warning hidden" aria-live="polite"></p>
+                <div id="studentClassworkMessage" class="student-message-container hidden"> My Works</div>
+
+                <div id="test-list"></div>
+                <div id="noTestsContent" class="no-tests-container hidden">
+                    <img src="PNG/fox.jpg" id="fox_image" alt="No Assignments Placeholder">
+                    <p id="text1" class="no-assignments-title">This is where you'll assign and receive work!</p>
+                    <p id="text2" class="no-assignments-description">You can add assignments and other work for the <br> class, then organize it into topics.</p>
+                </div>            
+            </div>
+            <div id="people" class="page-section hidden"> 
+                <div class="people-toolbar">
+                    <div id="inviteStudentPanel" class="invite-student-panel hidden">
+                        <h3>Invite student</h3>
+                        <div class="inline-form">
+                            <input type="email" id="studentInviteEmail" placeholder="Student email">
+                            <button type="button" id="sendInviteButton">Invite</button>
+                        </div>
+                        <p id="inviteStudentMessage" class="form-message"></p>
+                        <div id="pendingInvitesList" class="pending-invites-list"></div>
+                    </div>
+                    <div class="search-box">
+                        <input type="search" id="peopleSearchInput" placeholder="Search people">
+                    </div>
+                </div>
+                <div class="teachers-section">
+                    <div class="section-header">
+                        <h2>Teachers</h2>
+                    </div>
+                    <div id="teachersList" class="member-list"></div>
+                </div>
+                <div class="students-section">
+                    <div class="section-header">
+                        <h2>Students</h2>
+                    </div>
+                    <div id="studentsList" class="member-list"></div>
+                </div>
+            </div>
+            <div id="grades" class="page-section hidden">
+                <div class="grades-toolbar">
+                    <h1 class="section-title">My Grades</h1>
+                    <input type="search" id="gradesSearchInput" placeholder="Search students or tests">
+                </div>
+                    <div id="grades-list"></div>
+                    <div id="noGradesContent" class="no-grade-container hidden">
+                        <img src="PNG/fish.png" id="fish_image" alt="No Grades Placeholder">
+                        <p id="text3" class="no-grades-title">This is where you’ll view and manage grades.</p>
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="classLoader" class="class-loader">
+        <div class="class-loader-box">
+            <div class="class-loader-spinner"></div>
+            <p>Loading class...</p>
+        </div>
+    </div>
+
+    <div id="accountSettingsModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Account settings</h2>
+            <form id="accountSettingsForm">
+                <label for="accountFirstname">Username</label>
+                <input type="text" id="accountFirstname" placeholder="Username" required>
+
+                <label for="accountCurrentPassword">Current password</label>
+                <input type="password" id="accountCurrentPassword" placeholder="Current password">
+
+                <label for="accountPassword">New password</label>
+                <input type="password" id="accountPassword" placeholder="New password">
+
+                <label for="accountConfirmPassword">Confirm new password</label>
+                <input type="password" id="accountConfirmPassword" placeholder="Confirm new password">
+
+                <p id="accountSettingsMessage" class="settings-message"></p>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancelAccountSettings" class="cancel-button">Cancel</button>
+                    <button type="submit" id="saveAccountSettingsButton" class="create-button">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/popup.js"></script>
+    <script type="module" src="../js/class.js"></script> 
+    <script type="module" src="../js/test.js"></script>
+    
+</body>
+</html>
