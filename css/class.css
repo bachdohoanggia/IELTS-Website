@@ -4624,9 +4624,32 @@ button.danger-small,
   font-weight: 850 !important;
 }
 
+#grades .grade-student-header .grade-folder-delete-btn {
+  margin-left: auto !important;
+  height: 40px !important;
+  padding: 0 18px !important;
+  border-radius: 999px !important;
+  background: #fff1f2 !important;
+  border: 1px solid #fecdd3 !important;
+  color: #be123c !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  box-shadow: 0 10px 22px rgba(225, 29, 72, 0.08) !important;
+}
+
+#grades .grade-student-header .grade-folder-delete-btn:hover {
+  background: #ffe4e6 !important;
+  border-color: #fda4af !important;
+  color: #9f1239 !important;
+  transform: translateY(-1px);
+  filter: none !important;
+}
+
 #grades .grade-student-body {
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
+  justify-content: start !important;
+  align-items: stretch !important;
   gap: 18px !important;
   padding: 20px 24px 24px !important;
   background: #fbfdff;
@@ -4677,12 +4700,19 @@ button.danger-small,
 
 #grades .grade-card-info {
   min-width: 0;
+  width: 100% !important;
   display: grid !important;
+  justify-self: start !important;
+  align-self: center !important;
   gap: 9px !important;
+  margin: 0 !important;
+  text-align: left !important;
 }
 
 #grades .grade-student-body .test-item.grade-item .grade-card-title,
 #grades-list > .test-item.grade-item .grade-card-title {
+  justify-self: start !important;
+  text-align: left !important;
   max-width: 100% !important;
   margin: 0 !important;
   color: #0f172a !important;
@@ -4696,6 +4726,8 @@ button.danger-small,
 
 #grades .grade-student-body .test-item.grade-item .grade-summary,
 #grades-list > .test-item.grade-item .grade-summary {
+  justify-self: start !important;
+  text-align: left !important;
   width: fit-content;
   display: inline-grid !important;
   grid-auto-flow: column;
@@ -4744,6 +4776,8 @@ button.danger-small,
 
 #grades .grade-student-body .test-item.grade-item .grade-submitted-at,
 #grades-list > .test-item.grade-item .grade-submitted-at {
+  justify-self: start !important;
+  text-align: left !important;
   margin: 0 !important;
   color: #64748b !important;
   font-size: 13px !important;
@@ -4826,6 +4860,12 @@ button.danger-small,
   #grades-list > .test-item.grade-item .test-actions {
     justify-content: flex-start !important;
   }
+}
+
+/* A student with one or two scores should not stretch those cards into giant centered rows. */
+#grades .grade-student-body .test-item.grade-item {
+  grid-column: auto !important;
+  justify-self: stretch !important;
 }
 
 

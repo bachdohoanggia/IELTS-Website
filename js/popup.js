@@ -16,17 +16,19 @@
         z-index: 99999;
         display: grid;
         place-items: center;
-        padding: 24px;
+        padding: 20px;
         background: rgba(15, 23, 42, 0.34);
         backdrop-filter: blur(10px);
         animation: appPopupFadeIn 150ms ease both;
       }
 
       .app-popup-card {
-        width: min(430px, 100%);
+        width: min(520px, calc(100vw - 40px));
+        max-width: 520px;
+        box-sizing: border-box;
         overflow: hidden;
         border: 1px solid rgba(191, 219, 254, 0.95);
-        border-radius: 24px;
+        border-radius: 26px;
         background:
           linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 255, 0.98));
         box-shadow: 0 28px 80px rgba(15, 23, 42, 0.22);
@@ -35,20 +37,26 @@
         animation: appPopupScaleIn 170ms ease both;
       }
 
+      #app-popup-root .app-popup-card {
+        width: min(520px, calc(100vw - 40px)) !important;
+        max-width: 520px !important;
+        box-sizing: border-box !important;
+      }
+
       .app-popup-header {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 20px 22px 12px;
+        gap: 14px;
+        padding: 26px 30px 12px;
       }
 
       .app-popup-icon {
-        width: 42px;
-        height: 42px;
+        width: 46px;
+        height: 46px;
         flex: 0 0 auto;
         display: grid;
         place-items: center;
-        border-radius: 16px;
+        border-radius: 17px;
         background: linear-gradient(135deg, #2563eb, #14b8a6);
         color: #ffffff;
         font: 900 24px/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -58,52 +66,60 @@
       .app-popup-title {
         margin: 0;
         color: #0f172a;
-        font: 900 20px/1.18 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font: 900 24px/1.18 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
       .app-popup-message {
         margin: 0;
-        padding: 0 22px 20px;
+        padding: 0 30px 14px;
         color: #475569;
-        font: 700 15px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font: 800 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         white-space: pre-wrap;
         overflow-wrap: anywhere;
       }
 
       .app-popup-field-wrap {
-        padding: 0 22px 20px;
+        padding: 0 30px 22px;
       }
 
       .app-popup-input {
         width: 100%;
-        height: 50px;
-        padding: 0 16px;
+        height: 56px;
+        padding: 0 18px;
         border: 1px solid #cbd5e1;
         border-radius: 18px;
         background: #ffffff;
         color: #0f172a;
-        font: 800 16px/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font: 800 17px/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         box-sizing: border-box;
+      }
+
+      #app-popup-root .app-popup-input {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
       }
 
       .app-popup-input:focus {
         outline: none;
         border-color: #4ea5b2;
-        box-shadow: 0 0 0 3px rgba(78, 165, 178, 0.13);
+        box-shadow: 0 0 0 4px rgba(78, 165, 178, 0.14);
       }
 
       .app-popup-actions {
         display: flex;
         justify-content: flex-end;
-        gap: 10px;
-        padding: 0 22px 22px;
+        gap: 12px;
+        padding: 0 30px 28px;
         border-top: 0 !important;
         background: transparent !important;
       }
 
       .app-popup-button {
-        min-width: 88px;
-        height: 42px !important;
+        min-width: 108px;
+        height: 46px !important;
         border: 1px solid #4ea5b2 !important;
         border-radius: 999px !important;
         background: #4ea5b2 !important;
@@ -193,6 +209,33 @@
       .app-popup-button:focus-visible {
         outline: 3px solid rgba(37, 99, 235, 0.24);
         outline-offset: 2px;
+      }
+
+      @media (max-width: 560px) {
+        .app-popup-card {
+          width: calc(100vw - 28px);
+          max-width: calc(100vw - 28px);
+          border-radius: 22px;
+        }
+
+        #app-popup-root .app-popup-card {
+          width: calc(100vw - 28px) !important;
+          max-width: calc(100vw - 28px) !important;
+        }
+
+        .app-popup-header {
+          padding: 22px 22px 10px;
+        }
+
+        .app-popup-message,
+        .app-popup-field-wrap {
+          padding-left: 22px;
+          padding-right: 22px;
+        }
+
+        .app-popup-actions {
+          padding: 0 22px 22px;
+        }
       }
 
       button.app-action-busy,

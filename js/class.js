@@ -1247,13 +1247,8 @@ function renderClasswork() {
 
     testListContainer.innerHTML = '';
     if (folderWarning) {
-        if (userRole === 'teacher' && currentClassFolders.length === 0) {
-            folderWarning.textContent = 'Please create a folder before creating a test.';
-            folderWarning.classList.remove('hidden');
-        } else {
-            folderWarning.textContent = '';
-            folderWarning.classList.add('hidden');
-        }
+        folderWarning.textContent = '';
+        folderWarning.classList.add('hidden');
     }
 
     if (currentClassTests.length === 0 && currentClassFolders.length === 0) {
@@ -1712,6 +1707,11 @@ async function createTestFolder() {
     const classCode = getClassCodeFromUrl();
     const name = await window.appPrompt("Folder name:", '', { title: 'Create folder' });
     if (!name || !name.trim()) return;
+    const folderWarning = document.getElementById('classworkFolderWarning');
+    if (folderWarning) {
+        folderWarning.textContent = '';
+        folderWarning.classList.add('hidden');
+    }
 
     try {
         await addDoc(collection(db, CLASSES_COLLECTION, classCode, TEST_FOLDERS_SUBCOLLECTION), {
@@ -1755,13 +1755,12 @@ async function deleteTestFolder(folder) {
     return window.withButtonLock(null, async () => {
     if (!isCurrentUserTeacher()) return;
     const classCode = getClassCodeFromUrl();
-    if (!await window.appConfirm(`Delete folder "${folder.name}"? Tests inside will move to Unfiled.`, { title: 'Delete folder' })) return;
+    if (!await window.appConfirm(`Delete folder "${folder.name}"? All tests inside this folder will be permanently deleted and cannot be restored.`, { title: 'Delete folder' })) return;
 
     try {
         const testsInFolder = currentClassTests.filter(test => test.folderId === folder.id);
-        await Promise.all(testsInFolder.map(test => updateDoc(
-            doc(db, CLASSES_COLLECTION, classCode, TESTS_SUBCOLLECTION, test.id),
-            { folderId: null, updatedAt: new Date() }
+        await Promise.all(testsInFolder.map(test => deleteDoc(
+            doc(db, CLASSES_COLLECTION, classCode, TESTS_SUBCOLLECTION, test.id)
         )));
         await deleteDoc(doc(db, CLASSES_COLLECTION, classCode, TEST_FOLDERS_SUBCOLLECTION, folder.id));
         collapseClassworkAfterNextRender = true;

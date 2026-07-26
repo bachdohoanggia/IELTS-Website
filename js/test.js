@@ -2476,11 +2476,13 @@ window.getAnswerKey = getAnswerKey;
                         <button type="button" class="folder-toggle">▾</button>
                         <h3>${studentInfo.name}</h3>
                         <span>${filteredResults.length} score${filteredResults.length === 1 ? '' : 's'}</span>
+                        <button type="button" class="folder-delete-btn grade-folder-delete-btn">Delete</button>
                     </div>
                     <div class="grade-student-body"></div>
                 `;
                 const body = folder.querySelector('.grade-student-body');
                 const toggleButton = folder.querySelector('.folder-toggle');
+                const deleteButton = folder.querySelector('.grade-folder-delete-btn');
                 const shouldOpen = Boolean(searchTerm) || openGradeStudentIds.has(studentId);
                 if (!shouldOpen) {
                     body.classList.add('hidden');
@@ -2495,6 +2497,7 @@ window.getAnswerKey = getAnswerKey;
                         openGradeStudentIds.add(studentId);
                     }
                 });
+                deleteButton?.addEventListener('click', (event) => deleteGradeStudentFolder(studentId, studentInfo.name, studentResults, event.currentTarget));
 
                 filteredResults.forEach(result => body.appendChild(buildGradeItem(result, classCode, true)));
                 gradesList.appendChild(folder);
@@ -2549,6 +2552,35 @@ window.getAnswerKey = getAnswerKey;
         });
     }
     window.deleteScoreFromGrades = deleteScoreFromGrades;
+
+    async function deleteGradeStudentFolder(studentId, studentName, results, button = null) {
+        return window.withButtonLock(button, async () => {
+            const scoreCount = Array.isArray(results) ? results.length : 0;
+            const scoreLabel = `${scoreCount} score${scoreCount === 1 ? '' : 's'}`;
+            const confirmed = await window.appConfirm(
+                `Delete grade folder "${studentName}"? All ${scoreLabel} inside will be permanently deleted and cannot be restored.`,
+                { title: 'Delete grade folder' }
+            );
+            if (!confirmed) return;
+
+            const userId = getCurrentUserUid();
+            try {
+                captureOpenGradeStudentFolders();
+                await Promise.all((results || []).map(result => updateDoc(doc(db, "testResults", result.resultId), {
+                    deleted: true,
+                    deletedAt: new Date(),
+                    deletedBy: userId
+                })));
+                cachedGradeResults = cachedGradeResults.filter(result => result.userId !== studentId);
+                openGradeStudentIds.delete(studentId);
+                renderCachedGrades();
+            } catch (error) {
+                console.error("Error deleting grade folder:", error);
+                await window.appAlert("Failed to delete grade folder: " + error.message, { title: 'Delete failed' });
+            }
+        });
+    }
+    window.deleteGradeStudentFolder = deleteGradeStudentFolder;
     window.renderCachedGrades = renderCachedGrades;
 
     function viewScore(resultId, classCode) {
