@@ -1613,3 +1613,101 @@
         min-width: min(340px, 88vw) !important;
     }
 }
+
+/* Match exam accents to the clock teal */
+:root {
+    --exam-clock-teal: #4ea5b2;
+    --exam-clock-teal-dark: #347f8c;
+    --exam-clock-teal-soft: #ecfbfd;
+    --exam-clock-teal-ring: rgba(78, 165, 178, 0.18);
+}
+
+.inline-section-title-display,
+.dropdown-section .inline-section-title-display,
+.multiple-choice-section .inline-section-title-display,
+.question-section-title,
+.exam-section-title {
+    color: var(--exam-clock-teal-dark) !important;
+}
+
+#exam-instructions,
+#exam-passage {
+    background-color: #f2fcfd !important;
+}
+
+.inline-blank-number,
+.exam-question-dot.answered {
+    background: var(--exam-clock-teal) !important;
+    border-color: var(--exam-clock-teal) !important;
+    color: #ffffff !important;
+}
+
+.inline-blank-section .inline-blank-answer:focus,
+.dropdown-answer-select:focus,
+.question select:focus,
+.question input[type="text"]:focus,
+.question input[type="number"]:focus,
+.question textarea:focus {
+    border-color: var(--exam-clock-teal) !important;
+    box-shadow: 0 0 0 3px var(--exam-clock-teal-ring) !important;
+}
+
+.part-tab:hover,
+.exam-question-dot:hover {
+    border-color: var(--exam-clock-teal) !important;
+    background: var(--exam-clock-teal-soft) !important;
+}
+
+.part-tab.active,
+.exam-part-tab.expanded {
+    border-color: var(--exam-clock-teal) !important;
+    background: #fbfeff !important;
+}
+
+.part-tab.active small {
+    color: var(--exam-clock-teal-dark) !important;
+}
+
+.exam-part-nav {
+    border-top-color: rgba(78, 165, 178, 0.28) !important;
+}
+
+.submit-button,
+.submit-review-button,
+.confirm-button,
+.note-input-modal .save-btn {
+    background: var(--exam-clock-teal) !important;
+    border-color: var(--exam-clock-teal) !important;
+    box-shadow: 0 12px 26px rgba(78, 165, 178, 0.24) !important;
+}
+
+.submit-button:hover,
+.submit-review-button:hover,
+.confirm-button:hover,
+.note-input-modal .save-btn:hover {
+    background: var(--exam-clock-teal-dark) !important;
+    border-color: var(--exam-clock-teal-dark) !important;
+    box-shadow: 0 16px 32px rgba(78, 165, 178, 0.3) !important;
+}
+
+.notepad-toggle-button:hover,
+.notepad-toggle-button.active,
+.notepad-search button:hover {
+    background: var(--exam-clock-teal-soft) !important;
+    border-color: rgba(78, 165, 178, 0.34) !important;
+    box-shadow: 0 10px 22px rgba(78, 165, 178, 0.12) !important;
+}
+
+.notepad-header::after {
+    background: var(--exam-clock-teal) !important;
+}
+
+.notepad-search:focus-within,
+.note-input-modal textarea:focus {
+    border-color: var(--exam-clock-teal) !important;
+    box-shadow: 0 0 0 4px var(--exam-clock-teal-ring) !important;
+}
+
+.note-item .note-highlighted-text {
+    color: #167984 !important;
+}
