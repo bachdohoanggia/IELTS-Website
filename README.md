@@ -4,6 +4,18 @@ A lightweight IELTS classroom web app built with plain HTML, CSS, JavaScript, Fi
 
 The app supports teacher/student accounts, classroom management, IELTS Reading tests, assignment targeting, grades, score review, class stream posts, comments, folders, and responsive UI.
 
+## Demo
+
+This project is live at [https://vptielts.netlify.app/](https://vptielts.netlify.app/)
+
+Screenshots:
+
+![Dashboard demo](assets/demo-dashboard.png)
+
+![Class stream demo](assets/demo-stream.png)
+
+![Exam demo](assets/demo-exam.png)
+
 ## Features
 
 - Firebase Authentication login and signup.
@@ -123,4 +135,3 @@ Before deploying, make sure `js/firebase-config.js` exists in the deployed files
 - Firebase API keys are not secret in the same way as server keys, but Firestore Security Rules are still important.
 - Client-side role checks improve the UI, but production apps should also enforce permissions with Firestore Security Rules.
 - New media upload/storage is not part of the current version.
-
