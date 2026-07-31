@@ -4,6 +4,12 @@ A lightweight IELTS classroom web app built with plain HTML, CSS, JavaScript, Fi
 
 The app supports teacher/student accounts, classroom management, IELTS Reading tests, assignment targeting, grades, score review, class stream posts, comments, folders, and responsive UI.
 
+## Why I Built This
+
+I built this project around a real classroom need. My mother teaches IELTS, and I wanted to create something that could help her manage classes, assign practice work, and review student progress in one place. It also became a school project that I developed with my teammates, so the goal was not only to practice building a web app, but to solve a problem we could actually test with real users.
+
+Many IELTS websites only offer fixed sample tests, while deeper practice tools or teacher-focused features are usually locked behind paid plans. I wanted this app to be more flexible: teachers can manage a class like Google Classroom, create their own IELTS Reading tests, organize them into folders, assign work to selected students, and track scores without depending only on sample tests from the internet.
+
 ## Demo
 
 This project is live at [https://vptielts.netlify.app/](https://vptielts.netlify.app/)
